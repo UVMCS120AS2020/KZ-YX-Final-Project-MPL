@@ -22,9 +22,9 @@ int main() {
                                                                    "Type the start date like 3.06: ")) &&
         writeToFile(filename, getUserChoiceThree("And type the end date like 4.07: "))) {
         cout << "Your answers have been recorded. Here is the chart." << endl;
-        system("python3 letterHistogram.py");
+        system("python3 COVID19Chart.py");
     } else {
-        cout << "Oops, something went wrong!" << endl;
+        cout << "Error occurred!" << endl;
     }
     
     clearFile(filename);
