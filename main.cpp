@@ -10,6 +10,7 @@ bool checkForNumber(string answer);
 bool writeToFile(string filename, string message);
 void clearFile(string filename);
 
+// Global variable for second user choice to compare the dates
 string secondAnswer = "";
 
 int main() {
@@ -36,6 +37,7 @@ string getUserChoiceOne(string promptOne) {
     cout << promptOne;
     string answerOne;
     getline(cin, answerOne);
+    // The first answer should be 'a' or 'b', case insensitive.
     for (auto &c : answerOne) {
         c = tolower(c);
     }
@@ -49,6 +51,7 @@ string getUserChoiceTwo(string promptTwo) {
     cout << promptTwo;
     string answerTwo;
     getline(cin, answerTwo);
+    // The second answer should be a double between 3.06 and 3.31 or 4.01 and 4.07
     if (checkForNumber(answerTwo)) {
         double date = stod(answerTwo);
         if (date < 3.06 || (date > 3.31 && date < 4.01) || date > 4.07) {
@@ -60,6 +63,7 @@ string getUserChoiceTwo(string promptTwo) {
     } else {
         answerTwo = "error";
     }
+    // Store the answer in the global variable
     secondAnswer = answerTwo;
     return answerTwo;
 }
@@ -68,9 +72,12 @@ string getUserChoiceThree(string promptThree) {
     cout << promptThree;
     string answerThree;
     getline(cin, answerThree);
+    // The third answer should be a double between 3.06 and 3.31 or 4.01 and 4.07
     if (checkForNumber(answerThree)) {
         double date = stod(answerThree);
+        // Get the second answer from global variable
         double answerTwo = stod(secondAnswer);
+        // Besides the date range, the third answer should be equal to or greater than the second answer
         if (date < 3.06 || (date > 3.31 && date < 4.01) || date > 4.07 || answerTwo > date) {
             answerThree = "error";
         } else {
@@ -83,6 +90,7 @@ string getUserChoiceThree(string promptThree) {
     return answerThree;
 }
 
+// Function to check if the input is a two-decimal double
 bool checkForNumber(string answer) {
     int count = 0;
     for (auto &c : answer) {
