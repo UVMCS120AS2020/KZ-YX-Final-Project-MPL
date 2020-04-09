@@ -10,6 +10,7 @@ bool checkForNumber(string answer);
 bool writeToFile(string filename, string message);
 void clearFile(string filename);
 
+string secondAnswer = "";
 
 int main() {
     cout << "Here are Vermont COVID-19 Cases" << endl;
@@ -19,14 +20,14 @@ int main() {
                                                                    "Type 'b' for New Vermont COVID-19 Cases: ")) &&
         writeToFile(filename, getUserChoiceTwo("Which period do you want to see? The range is 3.06 to 4.07. "
                                                                    "Type the start date like 3.06: ")) &&
-        writeToFile(filename, getUserChoiceThree("And type the end date like 4.07: ", ))) {
+        writeToFile(filename, getUserChoiceThree("And type the end date like 4.07: "))) {
         cout << "Your answers have been recorded. Here is the chart." << endl;
-        //system("python3 letterHistogram.py");
+        system("python3 letterHistogram.py");
     } else {
         cout << "Oops, something went wrong!" << endl;
     }
     
-    //clearFile(filename);
+    clearFile(filename);
 
     return 0;
 }
@@ -59,6 +60,7 @@ string getUserChoiceTwo(string promptTwo) {
     } else {
         answerTwo = "error";
     }
+    secondAnswer = answerTwo;
     return answerTwo;
 }
 
@@ -68,7 +70,8 @@ string getUserChoiceThree(string promptThree) {
     getline(cin, answerThree);
     if (checkForNumber(answerThree)) {
         double date = stod(answerThree);
-        if (date < 3.06 || (date > 3.31 && date < 4.01) || date > 4.07) {
+        double answerTwo = stod(secondAnswer);
+        if (date < 3.06 || (date > 3.31 && date < 4.01) || date > 4.07 || answerTwo > date) {
             answerThree = "error";
         } else {
             answerThree = to_string(date);
